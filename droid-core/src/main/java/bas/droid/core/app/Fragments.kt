@@ -3,7 +3,14 @@ package bas.droid.core.app
 import android.app.Activity
 import android.content.Intent
 import android.util.Log
+import androidx.annotation.MainThread
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.HasDefaultViewModelProviderFactory
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import bas.droid.core.content.checkValidationOrThrow
 import bas.lib.core.exception.onCatch
 import bas.lib.core.exception.tryIgnore
@@ -36,4 +43,32 @@ fun Fragment.startActivityForResultSafely(intent: Intent, requestCode: Int) {
     }.onCatch {
         Log.w(this::class.java.simpleName, "无法打开指定Intent", it)
     }
+}
+
+/**
+ * @see viewModels
+ */
+@MainThread
+fun <VM : ViewModel> Fragment.obtainViewModel(
+    clazz: Class<VM>,
+    owner: ViewModelStoreOwner = this,
+    factory: ViewModelProvider.Factory? = null,
+): VM {
+    val factoryPromise = factory ?: ((owner as? HasDefaultViewModelProviderFactory)?.defaultViewModelProviderFactory  ?: defaultViewModelProviderFactory)
+    val storePromise = owner.viewModelStore
+    return ViewModelProvider(storePromise, factoryPromise)[clazz]
+}
+
+/**
+ * 获取ActivityViewModel
+ * @see activityViewModels
+ */
+@MainThread
+fun <VM : ViewModel> Fragment.obtainActivityViewModel(
+    clazz: Class<VM>,
+    factory: ViewModelProvider.Factory? = null
+): VM {
+    val factoryPromise = factory ?: defaultViewModelProviderFactory
+    val store = requireActivity().viewModelStore
+    return ViewModelProvider(store, factoryPromise)[clazz]
 }

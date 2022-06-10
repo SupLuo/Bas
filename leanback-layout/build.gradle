@@ -58,7 +58,7 @@ dependencies {
 //    implementation("bas.droid:leanback-layout-annotation:0.0.1")
 
     //约束布局:添加用于预先注入
-    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    implementation androidDeps.constraintlayout
 }
 
 // kotlin android javadoc

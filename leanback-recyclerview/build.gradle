@@ -33,8 +33,8 @@ android {
 
 dependencies {
 
-    gradle.ext.depImplementation(this,'leanback-core')
-    gradle.ext.depImplementation(this,'droid-core')
+    gradle.ext.depImplementation(this, 'leanback-core')
+    gradle.ext.depImplementation(this, 'droid-core')
 //    implementation "bas.droid:leanback-core:0.0.3"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation androidDeps.coreKtx

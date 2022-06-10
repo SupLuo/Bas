@@ -9,11 +9,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="打开班级之家"
-        android:onClick="onViewClick"></Button>
+        android:onClick="onViewClick"/>
     <Button
         android:id="@+id/btn2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="打开主题教育"
-        android:onClick="onViewClick"></Button>
+        android:onClick="onViewClick"/>
+
+    <Button
+        android:id="@+id/open_player_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="打开播放器"
+        android:onClick="onViewClick"/>
+
+    <EditText
+        android:id="@+id/player_url_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入播放地址"/>
+
 </LinearLayout>

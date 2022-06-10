@@ -14,6 +14,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import bas.lib.core.lang.deduceGenericsClass
 
 /**
  * Created by Lucio on 2020/11/1.
@@ -62,7 +63,7 @@ abstract class AMActivity<VM : AMViewModel> : AppCompatActivity(), AMBackPressed
      */
     @Note(message = "注意：自动推断在有几种情况下无法推断出正确类型，比如范型的个数、位置等会影响范型的推断，对于只有一个类型的范型子类推断无问题。")
     protected open fun deduceViewModelClass(): Class<VM>? {
-        return AMViewModelOwnerDelegate.deduceViewModelClass(this, viewModelParameterPosition)
+        return deduceGenericsClass(this, viewModelParameterPosition)
     }
 
     /**

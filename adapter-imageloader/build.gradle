@@ -1,4 +1,4 @@
-apply from: "$rootDir/gradle/android-lib-publishable.gradle"
+apply from: "../gradle/android-lib-publishable.gradle"
 
 dependencies {
 

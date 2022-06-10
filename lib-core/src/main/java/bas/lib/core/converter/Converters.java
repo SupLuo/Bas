@@ -3,7 +3,7 @@ package bas.lib.core.converter;
 import bas.lib.core.converter.fastjson.FastJsonConverter;
 import bas.lib.core.converter.gson.GsonConverter;
 import bas.lib.core.converter.jackson.JacksonConverter;
-import bas.lib.core.lang.ClassUtils;
+import bas.lib.core.lang.ClassesKt;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -23,16 +23,16 @@ public class Converters {
     static {
         try {
             //初始化默认JsonConverter，优先使用Jackson(Kotlin版本)
-            if (ClassUtils.isClassExists("com.fasterxml.jackson.module.kotlin.KotlinModule")) {
+            if (ClassesKt.isClassExists("com.fasterxml.jackson.module.kotlin.KotlinModule")) {
                 System.out.println("Converters：使用JacksonKotlinConverter");
                 mJsonConverter = new bas.lib.core.converter.jackson.JacksonConverter();
-            } else if (ClassUtils.isClassExists("com.fasterxml.jackson.databind.ObjectMapper")) {
+            } else if (ClassesKt.isClassExists("com.fasterxml.jackson.databind.ObjectMapper")) {
                 System.out.println("Converters：使用JacksonConverter");
                 mJsonConverter = new JacksonConverter();
-            } else if (ClassUtils.isClassExists("com.google.gson.Gson")) {
+            } else if (ClassesKt.isClassExists("com.google.gson.Gson")) {
                 System.out.println("Converters：使用GsonConverter");
                 mJsonConverter = new GsonConverter();
-            } else if (ClassUtils.isClassExists("com.alibaba.fastjson.JSON")) {
+            } else if (ClassesKt.isClassExists("com.alibaba.fastjson.JSON")) {
                 System.out.println("Converters：使用FastJsonConverter");
                 mJsonConverter = new FastJsonConverter();
             } else {

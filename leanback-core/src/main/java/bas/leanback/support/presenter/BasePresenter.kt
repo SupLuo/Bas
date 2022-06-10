@@ -152,7 +152,6 @@ abstract class BasePresenter<D, V : BaseViewHolder> : Presenter() {
         }
     }
 
-
     private class ItemKeyListenerHolder<D, V : BaseViewHolder>(
         val provider: ItemKeyListenerProvider<D, V>,
         var holder: V,
