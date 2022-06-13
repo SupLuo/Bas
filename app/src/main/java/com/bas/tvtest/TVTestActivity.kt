@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import bas.droid.core.content.ActionIntent
 import bas.droid.core.ui.toast
 import bas.lib.core.lang.orDefaultIfNullOrEmpty
+import bas.lib.core.lang.toIntOrDefault
 import bas.lib.core.lang.toUrlEncode
 import com.bas.R
 
@@ -45,8 +46,9 @@ class TVTestActivity : AppCompatActivity() {
             return
         }
 
+        val seek = findViewById<EditText>(R.id.player_seek_edit).text.toString().toIntOrDefault(0)
 
-        val intent = Intent("gdtv.intent.action.VIEW", Uri.parse("gdtv://intent/player?url=${url.toUrlEncode()}&islive=false"))
+        val intent = Intent("gdtv.intent.action.VIEW", Uri.parse("gdtv://intent/player?url=${url.toUrlEncode()}&islive=false&current=${seek}"))
         startActivity(intent)
     }
 

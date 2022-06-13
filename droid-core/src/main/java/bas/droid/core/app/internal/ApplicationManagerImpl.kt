@@ -98,12 +98,16 @@ internal object ApplicationManagerImpl : ApplicationManager {
         object : Application.ActivityLifecycleCallbacks {
 
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+                Log.d(TAG,"$activity onActivityCreated")
                 activityStack.add(activity)
             }
 
-            override fun onActivityStarted(activity: Activity) {}
+            override fun onActivityStarted(activity: Activity) {
+                Log.d(TAG,"$activity onActivityStarted")
+            }
 
             override fun onActivityResumed(activity: Activity) {
+                Log.d(TAG,"$activity onActivityResumed")
                 isPausing = false
                 val isBackground = !isForeground
                 isForeground = true
@@ -127,6 +131,7 @@ internal object ApplicationManagerImpl : ApplicationManager {
             }
 
             override fun onActivityPaused(activity: Activity) {
+                Log.d(TAG,"$activity onActivityPaused")
                 isPausing = true
                 checkRunnable?.let {
                     handler.removeCallbacks(it)
@@ -155,11 +160,16 @@ internal object ApplicationManagerImpl : ApplicationManager {
                 )
             }
 
-            override fun onActivityStopped(activity: Activity) {}
+            override fun onActivityStopped(activity: Activity) {
+                Log.d(TAG,"$activity onActivityStopped")
+            }
 
-            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
+                Log.d(TAG,"$activity onActivitySaveInstanceState")
+            }
 
             override fun onActivityDestroyed(activity: Activity) {
+                Log.d(TAG,"$activity onActivityDestroyed")
                 activityStack.remove(activity)
             }
         }

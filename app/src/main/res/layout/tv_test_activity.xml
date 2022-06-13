@@ -30,4 +30,9 @@
         android:layout_height="wrap_content"
         android:hint="请输入播放地址"/>
 
+    <EditText
+        android:id="@+id/player_seek_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Seek(单位：秒)"/>
 </LinearLayout>
