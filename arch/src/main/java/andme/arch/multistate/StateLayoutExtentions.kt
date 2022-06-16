@@ -1,12 +1,14 @@
 package andme.arch.multistate
 
 import andme.arch.R
+import andme.core.statelayout.StateLayout
 import andme.core.statelayout.StateView
 import bas.droid.core.util.isTVUIMode
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import bas.droid.core.view.extensions.setTextOrGone
+import bas.droid.ui.loader.core.LoaderUiState
 
 /**
  * Created by Lucio on 2021/5/16.
@@ -35,7 +37,7 @@ fun StateView.showErrorMsgWithButton(
     requestFocus: Boolean = false,
     onClick: (View) -> Unit
 ) {
-   showTextWithButton(msg, buttonText, requestFocus, onClick)
+    showTextWithButton(msg, buttonText, requestFocus, onClick)
 }
 
 fun StateView.showErrorMsgWithoutButton(msg: CharSequence) {
@@ -54,7 +56,7 @@ private fun StateView.showTextWithButton(
         it.visibility = View.VISIBLE
         it.text = buttonText
         it.setOnClickListener(onClick)
-        if(it.context.isTVUIMode()){
+        if (it.context.isTVUIMode()) {
             it.isFocusable = true
             it.isFocusableInTouchMode = true
         }
@@ -77,7 +79,7 @@ fun StateView.setRetryButton(
     buttonAM?.let {
         it.setText(text)
         it.setOnClickListener(onClick)
-        if(it.context.isTVUIMode()){
+        if (it.context.isTVUIMode()) {
             it.isFocusable = true
             it.isFocusableInTouchMode = true
         }
@@ -95,3 +97,41 @@ private val StateView.textViewAM: TextView? get() = view.findViewById(R.id.am_id
 
 
 private val StateView.buttonAM: Button? get() = view.findViewById(R.id.am_id_state_view_button)
+
+
+fun StateLayout.handleLoadUiState(
+    applyRetryWhenError: Boolean = false,
+    retryBtnRequestFocus: Boolean = false,
+    uiState: LoaderUiState,
+    onRetryClick: (View) -> Unit
+) {
+    when (uiState) {
+        is LoaderUiState.Loading -> {
+            this.showLoadingView {
+                this.showLoadingMsg(uiState.message)
+            }
+        }
+
+        is LoaderUiState.Error -> {
+            showErrorView {
+                if (applyRetryWhenError) {
+                    this.showErrorMsgWithButton(
+                        uiState.message,
+                        requestFocus = retryBtnRequestFocus,
+                        onClick = onRetryClick
+                    )
+                } else {
+                    this.showErrorMsgWithoutButton(uiState.message)
+                }
+
+            }
+        }
+
+        is LoaderUiState.CONTENT ->{
+            showContentView()
+        }
+        is LoaderUiState.Content<*> -> {
+            showContentView()
+        }
+    }
+}

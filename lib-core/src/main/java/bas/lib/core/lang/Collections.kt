@@ -2,13 +2,15 @@
  * Created by Lucio on 2020/12/13.
  */
 @file:JvmName("CollectionsKt")
+
 package bas.lib.core.lang
+
 import kotlin.collections.isNullOrEmpty as isNullOrEmptyLib
 
 /**
  * For Java
  */
-inline fun <T> Collection<T>?.isNullOrEmpty(): Boolean{
+inline fun <T> Collection<T>?.isNullOrEmpty(): Boolean {
     return this == null || this.isEmpty()
 }
 
@@ -46,3 +48,14 @@ inline fun <E> MutableCollection<E>.addAllNotNulls(
 
 inline fun <E> Collection<E>?.areItemsEqual(other: Collection<E>?) =
     CollectionUtils.areItemsEqual(this, other)
+
+/**
+ * 累加 elements.hashCode()
+ */
+inline fun <T> Collection<T>?.hashCodeAccumulate(): Int {
+    var result = 0
+    this?.forEach {
+        result = 31 * result + it.hashCode()
+    }
+    return result
+}

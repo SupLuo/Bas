@@ -7,17 +7,21 @@ import androidx.annotation.MainThread
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.HasDefaultViewModelProviderFactory
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.*
 import bas.droid.core.content.checkValidationOrThrow
 import bas.lib.core.exception.onCatch
 import bas.lib.core.exception.tryIgnore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
-/**
- * Created by Lucio on 2021/12/1.
- */
+inline fun Fragment.launchBlockRepeatOnLifecycle(
+    state: Lifecycle.State,
+    noinline block: suspend CoroutineScope.() -> Unit
+) {
+    lifecycleScope.launch {
+        viewLifecycleOwner.repeatOnLifecycle(state, block)
+    }
+}
 
 /**
  * 快速运行一个Activity
@@ -54,7 +58,9 @@ fun <VM : ViewModel> Fragment.obtainViewModel(
     owner: ViewModelStoreOwner = this,
     factory: ViewModelProvider.Factory? = null,
 ): VM {
-    val factoryPromise = factory ?: ((owner as? HasDefaultViewModelProviderFactory)?.defaultViewModelProviderFactory  ?: defaultViewModelProviderFactory)
+    val factoryPromise =
+        factory ?: ((owner as? HasDefaultViewModelProviderFactory)?.defaultViewModelProviderFactory
+            ?: defaultViewModelProviderFactory)
     val storePromise = owner.viewModelStore
     return ViewModelProvider(storePromise, factoryPromise)[clazz]
 }

@@ -9,9 +9,15 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.WindowManager
+import androidx.activity.ComponentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import bas.droid.core.content.checkValidationOrThrow
 import bas.lib.core.exception.onCatch
 import bas.lib.core.exception.tryIgnore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
 /**
@@ -29,6 +35,15 @@ fun Activity.enableTouchable(enable: Boolean) {
         )
     }
 
+}
+
+inline fun ComponentActivity.launchBlockRepeatOnLifecycle(
+    state: Lifecycle.State,
+    noinline block: suspend CoroutineScope.() -> Unit
+) {
+    lifecycleScope.launch {
+        repeatOnLifecycle(state, block)
+    }
 }
 
 /**

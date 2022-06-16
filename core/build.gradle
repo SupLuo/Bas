@@ -35,7 +35,7 @@ dependencies {
 //    releaseApi("bas.droid:droid-core:$droid_core_version")
 //    api("bas.droid:droid-core:$droid_core_version")
     gradle.ext.depImplementation(this, 'droid-core')
-    api project(path: ':ui-statelayout')
+    api project(path: ':ui-loader-core')
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

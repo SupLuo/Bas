@@ -9,16 +9,17 @@ package bas.droid.core.view.extensions
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import bas.droid.core.ui.tryUi
 import bas.lib.core.lang.orDefault
 
 typealias ViewClickLambda = ((View) -> Unit)?
 
-inline var View.isVisible: Boolean
-    get() = visibility == View.VISIBLE
-    set(value) {
-        visibility = if (value) View.VISIBLE else View.GONE
-    }
+//inline var View.isVisible: Boolean
+//    get() = visibility == View.VISIBLE
+//    set(value) {
+//        visibility = if (value) View.VISIBLE else View.GONE
+//    }
 
 
 inline var View.isVisibleOrNot: Boolean
@@ -30,7 +31,7 @@ inline var View.isVisibleOrNot: Boolean
 /**
  * 从ViewGroup移除自身
  */
-inline fun View?.removeSelfFromParent() {
+inline fun View?.removeFromParent() {
     if (this == null)
         return
     (this.parent as? ViewGroup)?.removeView(this)

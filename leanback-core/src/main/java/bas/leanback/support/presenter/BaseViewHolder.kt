@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.leanback.widget.Presenter
 import bas.droid.core.util.layoutInflater
-import bas.droid.core.view.extensions.isVisible
+import androidx.core.view.isVisible
 import bas.droid.core.view.extensions.isVisibleOrNot
 import bas.droid.core.view.extensions.setTextOrGone
 import bas.droid.core.view.extensions.setTextOrInvisible

@@ -164,7 +164,6 @@ include ':adapter-mediaplayer'
 //include ':leanback-effect-compiler'
 //include ':leanback-effect-annotation'
 
-include ':ui-statelayout'
 include ':leanback-recyclerview'
 include ':binding-ext'
 
@@ -177,3 +176,4 @@ include ':paging'
 //include ':droid-net'
 include ':droid-net'
 include ':usecase'
+include ':ui-loader-core'

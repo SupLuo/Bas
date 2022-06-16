@@ -10,10 +10,10 @@ import javax.management.timer.Timer.ONE_DAY
 interface DateFormatUseCase {
     fun format(date: Date): String
 
-    companion object{
+    companion object {
 
         @JvmStatic
-        fun newSimple(pattern: String, locale: Locale = Locale.getDefault()):DateFormatUseCase{
+        fun newSimple(pattern: String, locale: Locale = Locale.getDefault()): DateFormatUseCase {
             return SimpleDateFormatUseCase(pattern, locale)
         }
     }
@@ -45,8 +45,8 @@ interface JustNowFormatUseCase : DateFormatUseCase {
 }
 
 class DefaultJustNowFormatUseCase(
-    val justNowText: String = DEFAULT_JUST_NOW_TEXT,
-    val justNowLimitTime: Long = DEFAULT_JUST_NOW_TIME
+    private val justNowText: String = DEFAULT_JUST_NOW_TEXT,
+    private val justNowLimitTime: Long = DEFAULT_JUST_NOW_TIME
 ) : JustNowFormatUseCase {
     override fun isJustNowTime(date: Date): Boolean {
         val deltaTime = System.currentTimeMillis() - date.time
@@ -62,14 +62,23 @@ class DefaultJustNowFormatUseCase(
  * 友好日期格式化用例
  */
 class FriendlyDateFormatUseCase(
-    val locale: Locale = Locale.getDefault(),
-    val justNowFormat:JustNowFormatUseCase = DefaultJustNowFormatUseCase(),
-    val todayFormat: DateFormatUseCase = SimpleDateFormatUseCase("HH:mm", locale),
-    val yesterdayFormat: DateFormatUseCase = SimpleDateFormatUseCase("昨天 HH:mm", locale),
-    val beforeYesterdayFormat: DateFormatUseCase = SimpleDateFormatUseCase("前天 HH:mm", locale),
-    val sameYearFormat: DateFormatUseCase = SimpleDateFormatUseCase("MM-dd HH:mm:ss", locale),
-    val otherFormat: DateFormatUseCase = SimpleDateFormatUseCase("yyyy-MM-dd HH:mm:ss", locale)
-) :DateFormatUseCase{
+    private val locale: Locale = Locale.getDefault(),
+    private val justNowFormat: JustNowFormatUseCase = DefaultJustNowFormatUseCase(),
+    private val todayFormat: DateFormatUseCase = SimpleDateFormatUseCase("HH:mm", locale),
+    private val yesterdayFormat: DateFormatUseCase = SimpleDateFormatUseCase("昨天 HH:mm", locale),
+    private val beforeYesterdayFormat: DateFormatUseCase = SimpleDateFormatUseCase(
+        "前天 HH:mm",
+        locale
+    ),
+    private val sameYearFormat: DateFormatUseCase = SimpleDateFormatUseCase(
+        "MM-dd HH:mm:ss",
+        locale
+    ),
+    private val otherFormat: DateFormatUseCase = SimpleDateFormatUseCase(
+        "yyyy-MM-dd HH:mm:ss",
+        locale
+    )
+) : DateFormatUseCase {
 
     override fun format(date: Date): String {
         return if (justNowFormat.isJustNowTime(date)) { // 十分钟内

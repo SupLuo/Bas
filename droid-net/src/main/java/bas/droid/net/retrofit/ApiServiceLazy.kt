@@ -18,8 +18,7 @@ class ApiServiceLazy<ApiService : Any>(
 
     override val value: ApiService
         get() {
-            val retrofit = factory.retrofit
-            val currentUrl = retrofit.baseUrl().toString()
+            val currentUrl = factory.baseUrl
             if (currentUrl != _url) {//不可用
                 //检查service是否可用：如果当前service的url与client的url不一致，则不可用
                 _service = null
