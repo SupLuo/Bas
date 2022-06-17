@@ -8,9 +8,12 @@ import java.util.concurrent.ConcurrentHashMap
  * Created by Lucio on 2022/3/23.
  */
 
-open class ViewModelArch : ViewModel(){
+open class ViewModelArch : ViewModel() {
 
     private val joinPreviousRunners: ConcurrentHashMap<String, ControlledRunner<Any?>> =
+        ConcurrentHashMap()
+
+    private val cancelPreviousRunners: ConcurrentHashMap<String, ControlledRunner<Any?>> =
         ConcurrentHashMap()
 
     /**
@@ -18,10 +21,24 @@ open class ViewModelArch : ViewModel(){
      */
     suspend fun <T> launchOrJoinPrevious(key: String, func: suspend () -> T): T {
         val runner = synchronized(joinPreviousRunners) {
-            joinPreviousRunners.getOrPut(key){
-                ControlledRunner<Any?>()
+            joinPreviousRunners.getOrPut(key) {
+                ControlledRunner()
             }
         }
         return runner.joinPreviousOrRun(func) as T
+    }
+
+
+    /**
+     * 执行并取消之前启动的[key]相同的任务
+     */
+    @Synchronized
+    suspend fun <T> launchAndCancelPrevious(key: String, func: suspend () -> T): T {
+        val runner = synchronized(cancelPreviousRunners) {
+            cancelPreviousRunners.getOrPut(key) {
+                ControlledRunner()
+            }
+        }
+        return runner.cancelPreviousThenRun(func) as T
     }
 }

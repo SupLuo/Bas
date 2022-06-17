@@ -3,7 +3,14 @@ package bas.droid.ui.loader.core
 
 sealed interface LoaderUiState {
 
-    val extra: Any?
+    companion object {
+
+        @JvmField
+        val LOADING = Loading("")
+
+        @JvmField
+        val CONTENT = Content(Unit)
+    }
 
     /**
      * 懒惰状态:不知道该干嘛，，保持现状？
@@ -11,6 +18,11 @@ sealed interface LoaderUiState {
     object LAZY : LoaderUiState {
         override val extra: Any? = null
     }
+
+    val extra: Any?
+
+
+    val isContentState:Boolean get() = this is Content<*>
 
     /**
      * loading状态
@@ -28,12 +40,12 @@ sealed interface LoaderUiState {
         override val extra: Any? = null
     ) : LoaderUiState
 
-    /**
-     * 数据状态：但不附加数据的情况，充当标志的情况
-     */
-    object CONTENT : LoaderUiState {
-        override val extra: Any? = null
-    }
+//    /**
+//     * 数据状态：但不附加数据的情况，充当标志的情况
+//     */
+//    object CONTENT : LoaderUiState {
+//        override val extra: Any? = null
+//    }
 
     /**
      * 错误状态

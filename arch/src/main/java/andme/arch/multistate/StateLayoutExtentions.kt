@@ -90,29 +90,20 @@ fun StateView.setRetryButton(
 }
 
 
-private val StateView.imageViewAM: Button? get() = view.findViewById(R.id.am_id_state_view_image)
-
-
-private val StateView.textViewAM: TextView? get() = view.findViewById(R.id.am_id_state_view_text)
-
-
-private val StateView.buttonAM: Button? get() = view.findViewById(R.id.am_id_state_view_button)
-
-
-fun StateLayout.handleLoadUiState(
+fun StateLayout.setLoaderUiState(
     applyRetryWhenError: Boolean = false,
     retryBtnRequestFocus: Boolean = false,
     uiState: LoaderUiState,
     onRetryClick: (View) -> Unit
 ) {
-    when (uiState) {
-        is LoaderUiState.Loading -> {
+    when  {
+        uiState is LoaderUiState.Loading -> {
             this.showLoadingView {
                 this.showLoadingMsg(uiState.message)
             }
         }
 
-        is LoaderUiState.Error -> {
+        uiState is LoaderUiState.Error -> {
             showErrorView {
                 if (applyRetryWhenError) {
                     this.showErrorMsgWithButton(
@@ -126,12 +117,37 @@ fun StateLayout.handleLoadUiState(
 
             }
         }
-
-        is LoaderUiState.CONTENT ->{
-            showContentView()
-        }
-        is LoaderUiState.Content<*> -> {
+        uiState is LoaderUiState.Content<*> -> {
             showContentView()
         }
     }
 }
+
+fun StateLayout.setLoaderUiStateWithoutRetry(uiState: LoaderUiState) {
+    when  {
+        uiState is LoaderUiState.Loading -> {
+            this.showLoadingView {
+                this.showLoadingMsg(uiState.message)
+            }
+        }
+
+        uiState is LoaderUiState.Error -> {
+            showErrorView {
+                this.showErrorMsgWithoutButton(uiState.message)
+            }
+        }
+        uiState is LoaderUiState.Content<*> -> {
+            showContentView()
+        }
+    }
+}
+
+
+private val StateView.imageViewAM: Button? get() = view.findViewById(R.id.am_id_state_view_image)
+
+
+private val StateView.textViewAM: TextView? get() = view.findViewById(R.id.am_id_state_view_text)
+
+
+private val StateView.buttonAM: Button? get() = view.findViewById(R.id.am_id_state_view_button)
+
