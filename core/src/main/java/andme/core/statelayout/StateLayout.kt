@@ -1,7 +1,6 @@
 package andme.core.statelayout
 
 import android.view.View
-import bas.droid.ui.loader.core.LoaderUiState
 
 
 interface StateLayoutAction {

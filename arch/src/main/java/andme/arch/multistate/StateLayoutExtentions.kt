@@ -3,10 +3,10 @@ package andme.arch.multistate
 import andme.arch.R
 import andme.core.statelayout.StateLayout
 import andme.core.statelayout.StateView
-import bas.droid.core.util.isTVUIMode
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import bas.droid.core.util.isTVUIMode
 import bas.droid.core.view.extensions.setTextOrGone
 import bas.droid.ui.loader.core.LoaderUiState
 
@@ -14,10 +14,12 @@ import bas.droid.ui.loader.core.LoaderUiState
  * Created by Lucio on 2021/5/16.
  */
 
+@Deprecated(message = "太滥用了")
 fun StateView.showLoadingMsg(msg: CharSequence?) {
     showTextWithoutButton(msg)
 }
 
+@Deprecated(message = "太滥用了")
 fun StateView.showEmptyMsgWithButton(
     msg: CharSequence,
     buttonText: String = "重试",
@@ -27,10 +29,12 @@ fun StateView.showEmptyMsgWithButton(
     showTextWithButton(msg, buttonText, requestFocus, onClick)
 }
 
+@Deprecated(message = "太滥用了")
 fun StateView.showEmptyMsgWithoutButton(msg: CharSequence) {
     showTextWithoutButton(msg)
 }
 
+@Deprecated(message = "太滥用了")
 fun StateView.showErrorMsgWithButton(
     msg: CharSequence,
     buttonText: String = "重试",
@@ -40,11 +44,12 @@ fun StateView.showErrorMsgWithButton(
     showTextWithButton(msg, buttonText, requestFocus, onClick)
 }
 
+@Deprecated(message = "太滥用了")
 fun StateView.showErrorMsgWithoutButton(msg: CharSequence) {
     showTextWithoutButton(msg)
 }
 
-
+@Deprecated(message = "太滥用了")
 private fun StateView.showTextWithButton(
     msg: CharSequence?,
     buttonText: String = "重试",
@@ -71,6 +76,7 @@ private fun StateView.showTextWithoutButton(msg: CharSequence?) {
     buttonAM?.visibility = View.GONE
 }
 
+@Deprecated(message = "太滥用了")
 fun StateView.setRetryButton(
     text: String = "重试",
     requestFocus: Boolean = false,
@@ -96,7 +102,7 @@ fun StateLayout.setLoaderUiState(
     uiState: LoaderUiState,
     onRetryClick: (View) -> Unit
 ) {
-    when  {
+    when {
         uiState is LoaderUiState.Loading -> {
             this.showLoadingView {
                 this.showLoadingMsg(uiState.message)
@@ -117,14 +123,25 @@ fun StateLayout.setLoaderUiState(
 
             }
         }
-        uiState is LoaderUiState.Content<*> -> {
+        uiState.isDataState -> {
             showContentView()
+        }
+        uiState.isEmptyState -> {
+            val extraMessage = uiState.extra as? String
+            if (extraMessage.isNullOrEmpty()) {
+                showEmptyView()
+            } else {
+                showEmptyView {
+                    showEmptyMsgWithoutButton(extraMessage)
+                }
+            }
+
         }
     }
 }
 
 fun StateLayout.setLoaderUiStateWithoutRetry(uiState: LoaderUiState) {
-    when  {
+    when {
         uiState is LoaderUiState.Loading -> {
             this.showLoadingView {
                 this.showLoadingMsg(uiState.message)

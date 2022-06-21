@@ -8,8 +8,20 @@ sealed interface LoaderUiState {
         @JvmField
         val LOADING = Loading("")
 
+        /**
+         * 用于内容视图但不关心数据场景的快速使用
+         */
         @JvmField
         val CONTENT = Content(Unit)
+
+        /**
+         * 用于内容视图为空场景的快速使用
+         */
+        @JvmField
+        val EMPTY = Content(null)
+
+        @JvmStatic
+        fun empty(message: String) = Content(null, message)
     }
 
     /**
@@ -21,8 +33,20 @@ sealed interface LoaderUiState {
 
     val extra: Any?
 
+    /**
+     * 是否为内容视图
+     */
+    val isContentState: Boolean get() = this is Content<*> && this != EMPTY
 
-    val isContentState:Boolean get() = this is Content<*>
+    /**
+     * 是否为 数据 内容视图
+     */
+    val isDataState: Boolean get() = this is Content<*> && this.data != null
+
+    /**
+     * 是否为空数据 内容视图
+     */
+    val isEmptyState: Boolean get() = this is Content<*> && this.data == null
 
     /**
      * loading状态
@@ -38,7 +62,19 @@ sealed interface LoaderUiState {
     data class Content<T> @JvmOverloads constructor(
         val data: T,
         override val extra: Any? = null
-    ) : LoaderUiState
+    ) : LoaderUiState {
+
+        companion object {
+
+            fun <T> empty(extra: Any? = null): Content<T?> {
+                return Content(null, extra)
+            }
+
+            fun <T> data(data: T?, extra: Any? = null): Content<T?> {
+                return Content(data, extra)
+            }
+        }
+    }
 
 //    /**
 //     * 数据状态：但不附加数据的情况，充当标志的情况
@@ -64,3 +100,4 @@ sealed interface LoaderUiState {
 
 
 }
+
