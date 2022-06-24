@@ -2,6 +2,9 @@
 <resources>
 
     <!--圆角大小-->
+    <dimen name="bas_corner_radius">6dp</dimen>
+
+    <!--圆角大小-->
     <dimen name="corner_radius_bas">6dp</dimen>
 
 </resources>

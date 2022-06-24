@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <color name="black_opacity_90">#E6000000</color>
-    <color name="black_opacity_70">#B2000000</color>
-    <color name="black_opacity_60">#99000000</color>
-    <color name="black_opacity_50">#7F000000</color>
-    <color name="black_opacity_40">#66000000</color>
-    <color name="black_opacity_30">#4D000000</color>
-    <color name="black_opacity_20">#33000000</color>
-    <color name="black_opacity_10">#19000000</color>
+    <item name="colorPrimary" type="color" tools:ignore="ResourceName" />
+    <item name="colorOnPrimary" type="color" tools:ignore="ResourceName" />
+    <item name="colorPrimaryDark" type="color" tools:ignore="ResourceName" />
+    <item name="colorAccent" type="color" tools:ignore="ResourceName" />
 
-    <color name="white_opacity_90">#E6FFFFFF</color>
-    <color name="white_opacity_70">#B2FFFFFF</color>
-    <color name="white_opacity_60">#99FFFFFF</color>
-    <color name="white_opacity_50">#7FFFFFFF</color>
-    <color name="white_opacity_40">#66FFFFFF</color>
-    <color name="white_opacity_30">#4DFFFFFF</color>
-    <color name="white_opacity_20">#33FFFFFF</color>
-    <color name="white_opacity_15">#26FFFFFF</color>
-    <color name="white_opacity_10">#19FFFFFF</color>
+
+    <color name="black_opacity_90" tools:ignore="ResourceName">#E6000000</color>
+    <color name="black_opacity_70" tools:ignore="ResourceName">#B2000000</color>
+    <color name="black_opacity_60" tools:ignore="ResourceName">#99000000</color>
+    <color name="black_opacity_50" tools:ignore="ResourceName">#7F000000</color>
+    <color name="black_opacity_40" tools:ignore="ResourceName">#66000000</color>
+    <color name="black_opacity_30" tools:ignore="ResourceName">#4D000000</color>
+    <color name="black_opacity_20" tools:ignore="ResourceName">#33000000</color>
+    <color name="black_opacity_10" tools:ignore="ResourceName">#19000000</color>
+
+    <color name="white_opacity_90" tools:ignore="ResourceName">#E6FFFFFF</color>
+    <color name="white_opacity_70" tools:ignore="ResourceName">#B2FFFFFF</color>
+    <color name="white_opacity_60" tools:ignore="ResourceName">#99FFFFFF</color>
+    <color name="white_opacity_50" tools:ignore="ResourceName">#7FFFFFFF</color>
+    <color name="white_opacity_40" tools:ignore="ResourceName">#66FFFFFF</color>
+    <color name="white_opacity_30" tools:ignore="ResourceName">#4DFFFFFF</color>
+    <color name="white_opacity_20" tools:ignore="ResourceName">#33FFFFFF</color>
+    <color name="white_opacity_15" tools:ignore="ResourceName">#26FFFFFF</color>
+    <color name="white_opacity_10" tools:ignore="ResourceName">#19FFFFFF</color>
 
     <!--主题文本颜色：通常为导航栏文本颜色-->
     <color name="text_color_primary_bas">#FFFFFFFF</color>

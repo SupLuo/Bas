@@ -9,35 +9,35 @@ import androidx.fragment.app.Fragment
 /**
  * Toast帮助类:可以通过修改该类改变行为
  */
-var toastHandler: ToastUI = SystemToastUI
+var toastUi: ToastUI = SystemToastUI
 
 
 fun Context.toast(msg: String) {
-    toastHandler.showToast(this, msg)
+    toastUi.showToast(this, msg)
 }
 
 fun Context.toast(msg: String, length: Int) {
-    toastHandler.showToast(this, msg, length)
+    toastUi.showToast(this, msg, length)
 }
 
 fun Fragment.toast(msg: String) {
     activity?.let {
-        toastHandler.showToast(it, msg)
+        toastUi.showToast(it, msg)
     }
 }
 
 fun Fragment.toast(msg: String, length: Int) {
     activity?.let {
-        toastHandler.showToast(it, msg, length)
+        toastUi.showToast(it, msg, length)
     }
 }
 
 fun View.toast(msg: String) {
-    toastHandler.showToast(context, msg)
+    toastUi.showToast(context, msg)
 }
 
 fun View.toast(msg: String, length: Int) {
-    toastHandler.showToast(context, msg, length)
+    toastUi.showToast(context, msg, length)
 }
 
 

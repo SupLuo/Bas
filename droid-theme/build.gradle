@@ -1,117 +1,11 @@
-plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-
-    /*用于kotlin生成javadoc*/
-    id 'org.jetbrains.dokka'
-    /*用于上传maven*/
-    id 'maven-publish'
-}
+apply from: "../gradle/android-lib-publishable.gradle"
 
 android {
-    compileSdkVersion rootProject.ext.globalCompileSdkVersion
-
-    defaultConfig {
-        minSdkVersion rootProject.ext.globalMinSdkVersion
-        targetSdkVersion rootProject.ext.globalTargetSdkVersion
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+    resourcePrefix 'bas_'
 }
 
 dependencies {
-
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation androidDeps.coreKtx
     implementation androidDeps.appcompat
     implementation androidDeps.material
-}
-
-
-// kotlin android javadoc
-task generateSourcesJar(type: Jar) {
-    group = 'jar'
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-//task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
-//    outputFormat = "javadoc"
-//    outputDirectory = javadoc.destinationDir
-//}
-
-task generateJavadoc(type: Jar, dependsOn: dokkaJavadoc) {
-    group = 'jar'
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives generateJavadoc
-    archives generateSourcesJar
-}
-
-def PROJECT_NAME = 'droid-theme'
-def PROJECT_VERSION = '0.0.1'
-def GROUP_ID = 'bas.droid'
-def ARTIFACT_ID = 'droid-theme'
-
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-def NEXUS_USER = properties.getProperty('NEXUS_USER')
-def NEXUS_PWD = properties.getProperty('NEXUS_PWD')
-def NEXUS_URL = properties.getProperty('NEXUS_URL')
-def NEXUS_URL_SNAPSHOT  = properties.getProperty('NEXUS_URL_SNAPSHOT')
-
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-                groupId = GROUP_ID
-                artifactId = ARTIFACT_ID
-                version = PROJECT_VERSION
-            }
-        }
-
-        repositories {
-            //仓库配置
-            maven {
-                //对于非 https 的仓库地址，需要设置 allowInsecureProtocol true
-                allowInsecureProtocol true
-                name = PROJECT_NAME //可选
-                url = PROJECT_VERSION.endsWith('SNAPSHOT') ? NEXUS_URL_SNAPSHOT : NEXUS_URL
-                credentials {
-                    username = NEXUS_USER
-                    password = NEXUS_PWD
-                }
-            }
-        }
-    }
 }

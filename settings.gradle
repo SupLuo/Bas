@@ -144,7 +144,7 @@ apply from : './module_dependon.gradle'
 
 
 include ':adapter-mediaplayer'
-//include ':droid-theme'
+include ':droid-theme'
 
 //include ':compat-multidex'
 //include ':droid-core'

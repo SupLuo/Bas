@@ -73,5 +73,3 @@ inline val Context.inputMethodManager
 inline val Context.clipboardManager
     get() = getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
 
-inline val Context.locationManager
-    get() = getSystemService(Context.LOCATION_SERVICE) as LocationManager

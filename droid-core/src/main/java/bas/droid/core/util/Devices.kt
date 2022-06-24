@@ -20,6 +20,7 @@ import android.os.ResultReceiver
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import bas.droid.core.location.locationManager
 
 
 /**
@@ -91,13 +92,6 @@ fun Context.isTablet(): Boolean {
     return resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE
 }
 
-/**
- *  定位服务是否可用
- */
-fun Context.isLocationServiceEnable(): Boolean {
-    val accessibleProviders = locationManager.getProviders(true)
-    return accessibleProviders != null && accessibleProviders.size > 0
-}
 
 /**
  * 是否亮屏

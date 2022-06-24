@@ -15,18 +15,18 @@ import androidx.fragment.app.Fragment
 /**
  * 对话框帮助类:可以通过修改该类改变行为
  */
-var dialogUI: DialogUI = SystemDialogUI
+var dialogUi: DialogUI = SystemDialogUI
 
 fun Context.showLoading(message: CharSequence): ProgressDialog {
-    return dialogUI.showLoading(this, message)
+    return dialogUi.showLoading(this, message)
 }
 
 fun Context.showAlertDialog(@StringRes messageId: Int, @StringRes positiveTextId: Int): Dialog {
-    return dialogUI.showAlertDialog(this, messageId, positiveTextId)
+    return dialogUi.showAlertDialog(this, messageId, positiveTextId)
 }
 
 fun Context.showAlertDialog(message: CharSequence, positiveBtnText: CharSequence): Dialog {
-    return dialogUI.showAlertDialog(this, message, positiveBtnText)
+    return dialogUi.showAlertDialog(this, message, positiveBtnText)
 }
 
 fun Context.showAlertDialog(
@@ -34,7 +34,7 @@ fun Context.showAlertDialog(
     okPair: Pair<CharSequence, DialogInterface.OnClickListener?>,
     cancelable: Boolean = true
 ): Dialog {
-    return dialogUI.showAlertDialog(this, message, okPair, cancelable)
+    return dialogUi.showAlertDialog(this, message, okPair, cancelable)
 }
 
 fun Context.showAlertDialog(
@@ -42,7 +42,7 @@ fun Context.showAlertDialog(
     okPair: Pair<Int, DialogInterface.OnClickListener?>,
     cancelable: Boolean = true
 ): Dialog {
-    return dialogUI.showAlertDialog(this, messageId, okPair, cancelable)
+    return dialogUi.showAlertDialog(this, messageId, okPair, cancelable)
 }
 
 fun Context.showAlertDialog(
@@ -51,7 +51,7 @@ fun Context.showAlertDialog(
     cancelPair: Pair<CharSequence, DialogInterface.OnClickListener?>? = null,
     cancelable: Boolean = true
 ): Dialog {
-    return dialogUI.showAlertDialog(this, message, okPair, cancelPair, cancelable)
+    return dialogUi.showAlertDialog(this, message, okPair, cancelPair, cancelable)
 }
 
 fun Context.showAlertDialog(
@@ -60,7 +60,7 @@ fun Context.showAlertDialog(
     cancelPair: Pair<Int, DialogInterface.OnClickListener?>? = null,
     cancelable: Boolean = true
 ): Dialog {
-    return dialogUI.showAlertDialog(this, messageId, okPair, cancelPair, cancelable)
+    return dialogUi.showAlertDialog(this, messageId, okPair, cancelPair, cancelable)
 }
 
 fun Fragment.showLoading(message: CharSequence): ProgressDialog {

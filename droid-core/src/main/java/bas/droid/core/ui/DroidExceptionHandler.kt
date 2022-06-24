@@ -23,7 +23,7 @@ open class DefaultDroidExceptionHandler : CommonExceptionHandler(), DroidExcepti
     }
 
     override fun handleUIException(context: Context, e: Throwable) {
-        dialogUI.showAlertDialog(context, e.friendlyMessage, "确定")
+        dialogUi.showAlertDialog(context, e.friendlyMessage, "确定")
     }
 }
 
