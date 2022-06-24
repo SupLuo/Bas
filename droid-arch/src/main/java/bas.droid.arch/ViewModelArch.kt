@@ -10,8 +10,8 @@ import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Created by Lucio on 2022/3/23.
+ * @note 为确保viewmodel的事件可用，需要先在UI（[ActivityArch]、[FragmentArch]是对应子类]）中进调用[UserUi.registerViewModeEventHandler]方法进行事件绑定
  */
-
 open class ViewModelArch : ViewModel() {
 
     private val joinPreviousRunners: ConcurrentHashMap<String, ControlledRunner<Any?>> =
@@ -135,23 +135,4 @@ open class ViewModelArch : ViewModel() {
             it + message
         }
     }
-
-//    class EventMessageUiState() {
-//
-//        private val messages: MutableList<ViewModelEventMessage> = mutableListOf()
-//
-//        fun add(message: ViewModelEventMessage) {
-//            messages.add(message)
-//        }
-//
-//        fun remove(message: ViewModelEventMessage){
-//            remove(message.id)
-//        }
-//
-//        fun remove(id:Long){
-//            messages.removeAll {
-//                it.id == id
-//            }
-//        }
-//    }
 }

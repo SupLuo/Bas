@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import bas.droid.core.ui.ProgressDialog
 import bas.droid.core.ui.dialogUi
+import bas.droid.core.ui.droidExceptionHandler
 import bas.droid.core.ui.toastUi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -25,7 +26,23 @@ sealed class ViewModelEventMessage(val id: Long, val extra: Any?) {
         this.target = target
     }
 
-    internal fun onHandled() {
+    /**
+     * 处理消息
+     */
+    internal fun resolve(ui: UserUi) {
+        try {
+            handleInternal(ui)
+        } finally {
+            onHandled()
+        }
+    }
+
+    /**
+     * 处理本条消息
+     */
+    protected abstract fun handleInternal(ui: UserUi)
+
+    protected open fun onHandled() {
         this.target?.onEventMessageHandled(this)
         this.target = null
     }
@@ -38,7 +55,12 @@ sealed class ViewModelEventMessage(val id: Long, val extra: Any?) {
         val message: String,
         val duration: Int = Toast.LENGTH_SHORT,
         extra: Any? = null
-    ) : ViewModelEventMessage(id, extra)
+    ) : ViewModelEventMessage(id, extra) {
+
+        override fun handleInternal(ui: UserUi) {
+            toastUi.showToast(ui.realCtx, message, duration)
+        }
+    }
 
     /**
      * 显示loading alert
@@ -50,7 +72,15 @@ sealed class ViewModelEventMessage(val id: Long, val extra: Any?) {
         id: Long = System.nanoTime(),
         extra: Any? = null
     ) :
-        ViewModelEventMessage(id, extra)
+        ViewModelEventMessage(id, extra) {
+
+        override fun handleInternal(ui: UserUi) {
+            //显示当前id之前，先隐藏之前显示的相同id的对话框
+            ui.hideLoadingProgressInternal(id.toString())
+            val dialog = dialogUi.showLoading(ui.realCtx, message)
+            ui.setTagIfAbsentBas(id.toString(), dialog)
+        }
+    }
 
     /**
      * 隐藏loading alert
@@ -67,10 +97,23 @@ sealed class ViewModelEventMessage(val id: Long, val extra: Any?) {
         fun dismiss() {
             target?.sendHideLoadingAlertMessage(this)
         }
+
+        override fun handleInternal(ui: UserUi) {
+            ui.hideLoadingProgressInternal(showMessageId.toString())
+        }
     }
 
-    class UiExceptionMessage @JvmOverloads constructor(val error: Throwable, id: Long = System.nanoTime(), extra: Any? = null) :
-    ViewModelEventMessage(id, extra)
+    class UiExceptionMessage @JvmOverloads constructor(
+        val error: Throwable,
+        id: Long = System.nanoTime(),
+        extra: Any? = null
+    ) :
+        ViewModelEventMessage(id, extra) {
+
+        override fun handleInternal(ui: UserUi) {
+            droidExceptionHandler.handleUIException(ui.realCtx, error)
+        }
+    }
 }
 
 fun UserUi.registerViewModeEventHandler(viewModel: ViewModelArch, state: Lifecycle.State) {
@@ -80,47 +123,13 @@ fun UserUi.registerViewModeEventHandler(viewModel: ViewModelArch, state: Lifecyc
             (ui as? Fragment)?.viewLifecycleOwner ?: ui
         viewLifecycleOwner.repeatOnLifecycle(state) {
             viewModel.eventUiState.collectLatest {
-                it.firstOrNull()?.let { eventMessage ->
-                    handleViewModelEventMessage(eventMessage)
-                }
+                it.firstOrNull()?.resolve(ui)
             }
         }
     }
 }
 
-fun UserUi.handleViewModelEventMessage(message: ViewModelEventMessage) {
-    when (message) {
-        is ViewModelEventMessage.ToastMessage -> {
-            handleViewModelToastMessage(message)
-        }
-
-        is ViewModelEventMessage.LoadingAlertMessage -> {
-            handleLoadingAlertMessage(message)
-        }
-        is ViewModelEventMessage.HideLoadingAlertMessage -> {
-
-        }
-
-    }
-    message.onHandled()
-}
-
-fun UserUi.handleViewModelToastMessage(message: ViewModelEventMessage.ToastMessage) {
-    toastUi.showToast(this.realCtx, message.message, message.duration)
-}
-
-fun UserUi.handleLoadingAlertMessage(message: ViewModelEventMessage.LoadingAlertMessage) {
-    //显示当前id之前，先隐藏之前显示的相同id的对话框
-    hideLoadingProgressInternal(message.id.toString())
-    val dialog = dialogUi.showLoading(this.realCtx, message.message)
-    this.setTagIfAbsentBas(message.id.toString(), dialog)
-}
-
-fun UserUi.handleHideLoadingAlertMessage(message: ViewModelEventMessage.HideLoadingAlertMessage) {
-    hideLoadingProgressInternal(message.showMessageId.toString())
-}
-
-private fun UserUi.hideLoadingProgressInternal(key: String) {
+internal fun UserUi.hideLoadingProgressInternal(key: String) {
     val previous = this.getTagBasAndRemove<ProgressDialog>(key)
     previous?.dismiss()
 }
