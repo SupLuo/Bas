@@ -40,4 +40,5 @@ fun RequestOptionsAIL(): com.bumptech.glide.request.RequestOptions {
         .format(
             com.bumptech.glide.load.DecodeFormat.PREFER_RGB_565
         )
+//        .onlyRetrieveFromCache(true)
 }

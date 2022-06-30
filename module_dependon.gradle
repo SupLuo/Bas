@@ -87,7 +87,7 @@ def inertModules = [
         'adapter-imageloader': [
                 group     : 'bas.droid',
                 version   : '1.0.0',
-                useModule : false,
+                useModule : true,
                 /*无依赖，独立组件*/
                 isIndepend: true
         ],

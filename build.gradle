@@ -5,6 +5,9 @@ buildscript {
     apply from: "gradle/dependencies.gradle"
 
     repositories {
+        google()
+        mavenCentral()
+
         maven { url 'https://www.jitpack.io'}
         /*阿里云镜像仓库，替代mavenCentral()和jcenter()*/
         maven { url 'https://maven.aliyun.com/repository/public' }
@@ -37,8 +40,8 @@ buildscript {
 allprojects {
 
     repositories {
-//        google()
-//        mavenCentral()
+        google()
+        mavenCentral()
         maven { url 'https://www.jitpack.io'}
         /*阿里云镜像仓库，替代mavenCentral()和jcenter()*/
         maven { url 'https://maven.aliyun.com/repository/public' }

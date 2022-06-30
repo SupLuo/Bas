@@ -37,7 +37,8 @@ ext {
     /*https://developer.android.google.cn/jetpack/androidx/releases/lifecycle?hl=zh-cn#2.4.1*/
     lifecycle_version = "2.4.1"
 
-    glide_version = "4.11.0"
+    /*https://github.com/bumptech/glide*/
+    glide_version = "4.13.2"
 
 
     /*支持到4.4 retrofit + okhttp的版本不能太高，高版本只支持ApiLevel 21*/

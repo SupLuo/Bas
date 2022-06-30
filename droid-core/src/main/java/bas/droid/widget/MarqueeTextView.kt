@@ -8,7 +8,7 @@ import android.util.Log
 import androidx.appcompat.widget.AppCompatTextView
 
 /**
- * Created by Lucio on 2021/6/3.
+ * Created by Lucio on 2021/6/30.
  * 传统跑马灯（基于系统Marquee方式）
  */
 class MarqueeTextView @JvmOverloads constructor(
