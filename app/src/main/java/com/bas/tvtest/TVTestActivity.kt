@@ -19,6 +19,7 @@ class TVTestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tv_test_activity)
+        findViewById<EditText>(R.id.player_url_edit).setText("http://insightvideosource.oss-cn-shenzhen.aliyuncs.com/video/%E5%8C%97%E8%BE%B0%E8%A1%97%E5%B9%BC%E5%84%BF%E5%9B%AD%E6%88%90%E5%93%81.mp4")
     }
 
     fun onViewClick(v: View) {
@@ -48,7 +49,7 @@ class TVTestActivity : AppCompatActivity() {
 
         val seek = findViewById<EditText>(R.id.player_seek_edit).text.toString().toIntOrDefault(0)
 
-        val intent = Intent("gdtv.intent.action.VIEW", Uri.parse("gdtv://intent/player?url=${url.toUrlEncode()}&islive=false&current=${seek}"))
+        val intent = Intent("gdtv.intent.action.VIEW", Uri.parse("gdtv://intent/player_url?url=${url.toUrlEncode()}&islive=false&current=${seek}"))
         startActivity(intent)
     }
 

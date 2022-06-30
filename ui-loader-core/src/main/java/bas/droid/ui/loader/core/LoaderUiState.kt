@@ -34,19 +34,19 @@ sealed interface LoaderUiState {
     val extra: Any?
 
     /**
-     * 是否为内容视图
+     * 是否为内容视图:内容视图又分为数据内容视图和空数据内容视图
      */
-    val isContentState: Boolean get() = this is Content<*> && this != EMPTY
+    val isContentState: Boolean get() = this is Content<*>
 
     /**
-     * 是否为 数据 内容视图
+     * 是否为数据内容视图
      */
     val isDataState: Boolean get() = this is Content<*> && this.data != null
 
     /**
-     * 是否为空数据 内容视图
+     * 是否为空内容视图
      */
-    val isEmptyState: Boolean get() = this is Content<*> && this.data == null
+    val isEmptyState: Boolean get() = (this == EMPTY) || (this is Content<*> && this.data == null)
 
     /**
      * loading状态

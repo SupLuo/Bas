@@ -3,6 +3,12 @@ package bas.droid.arch.ui
 import androidx.annotation.StringRes
 import bas.droid.core.ctxBas
 
-class AlertException(message: String) : RuntimeException(message) {
-    constructor(@StringRes textId: Int) : this(ctxBas.getString(textId))
+/**
+ * @param cancelable 是否可以取消
+ */
+class AlertException(message: String, val cancelable: Boolean = true) : RuntimeException(message) {
+    constructor(@StringRes textId: Int, cancelable: Boolean = true) : this(
+        ctxBas.getString(textId),
+        cancelable
+    )
 }

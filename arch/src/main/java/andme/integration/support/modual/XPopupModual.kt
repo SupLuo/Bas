@@ -135,7 +135,7 @@ fun XPopupBuilder.showFullScreen(
  */
 fun XPopupBuilder.showFullScreen(
     centerView: FullScreenPopupView
-) {
-    this.asCustom(centerView)
+):BasePopupView {
+    return this.asCustom(centerView)
         .show()
 }

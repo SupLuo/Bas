@@ -6,10 +6,13 @@ import android.graphics.Paint
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
+import android.util.Log
 import androidx.appcompat.widget.AppCompatTextView
 
 /**
  * 可以支持多条跑马灯：效果是一条显示完成之后再显示下一条
+ *
+ * @todo 引起了问题：导致10s后才stop的问题
  */
 class MarqueeTextView3 @JvmOverloads constructor(
     context: Context,
@@ -55,6 +58,29 @@ class MarqueeTextView3 @JvmOverloads constructor(
      * 因为这个控件在不断的请求重绘
      */
     var isEnableInDebugMode: Boolean = true
+
+    private val invalidateRunnable = object : Runnable {
+        override fun run() {
+            removeCallbacks(this)
+            if (!mScrolling || text.isNullOrEmpty()) {
+                return
+            }
+            //不断往左偏移
+            xScrollDistance -= 4//1.5f
+            //偏移的距离大于目标距离时，偏移结束
+            if (-xScrollDistance >= mScrollDistance) {
+                //当前滑动完毕
+                mCurrentMarqueeCompleteCount++
+                resetScroll()
+                if (mCurrentMarqueeCompleteCount >= marqueeRepeatLimit) {
+                    mCompleteListener?.onMarqueeScrollComplete()
+                }
+            }
+            invalidate()
+            postDelayed(this, 50)
+        }
+
+    }
 
     override fun setMarqueeRepeatLimit(marqueeLimit: Int) {
         super.setMarqueeRepeatLimit(marqueeLimit)
@@ -150,7 +176,7 @@ class MarqueeTextView3 @JvmOverloads constructor(
 
         override fun writeToParcel(out: Parcel, flags: Int) {
             super.writeToParcel(out, flags)
-            out.writeInt(if(isStarting) 1 else 0)
+            out.writeInt(if (isStarting) 1 else 0)
             out.writeFloat(step)
         }
 
@@ -177,15 +203,18 @@ class MarqueeTextView3 @JvmOverloads constructor(
         if (mScrolling)
             return
 
-        if(!isEnableInDebugMode)
+        if (!isEnableInDebugMode)
             return
 
         mScrolling = true
-        invalidate()
+
+        postDelayed(invalidateRunnable,300)
+//        postInvalidateDelayed(10 * 1000)
     }
 
     fun stopScroll() {
         mScrolling = false
+        removeCallbacks(invalidateRunnable)
 //        invalidate()
     }
 
@@ -193,6 +222,7 @@ class MarqueeTextView3 @JvmOverloads constructor(
 //        val paintY = textSize + paddingTop
         paint.color = currentTextColor
 
+        Log.d("跑马灯", "onDraw")
         if (mTextContent != text.toString()) {
             println("重置参数")
             setup()
@@ -205,22 +235,6 @@ class MarqueeTextView3 @JvmOverloads constructor(
             paintY,
             paint
         )
-        if (!mScrolling) {
-            return
-        }
-        //不断往左偏移
-        xScrollDistance -= 1.5f
-        //偏移的距离大于目标距离时，偏移结束
-        if (-xScrollDistance >= mScrollDistance) {
-            //当前滑动完毕
-            mCurrentMarqueeCompleteCount++
-            resetScroll()
-            if (mCurrentMarqueeCompleteCount >= marqueeRepeatLimit) {
-                mCompleteListener?.onMarqueeScrollComplete()
-            }
-        } else {
-            invalidate()
-        }
     }
 
     fun setOnMarqueeCompleteListener(listener: onMarqueeScrollCompleteListener?) {

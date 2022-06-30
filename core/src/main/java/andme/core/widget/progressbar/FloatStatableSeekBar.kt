@@ -606,7 +606,6 @@ class FloatStatableSeekBar @JvmOverloads constructor(
             mBarPaint.color = mSecondaryProgressColor
             mBarRectF.right = calculateBarProgressX(mSecondaryProgress)
             canvas.drawRoundRect(mBarRectF, mBarRoundedRadius, mBarRoundedRadius, mBarPaint)
-            invalidate()
         }
 
         //一级进度
