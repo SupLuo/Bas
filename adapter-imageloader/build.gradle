@@ -1,4 +1,4 @@
-apply from: "../gradle/android-lib-publishable.gradle"
+apply from: "../../gradle/android-lib-publishable.gradle"
 
 dependencies {
 
@@ -11,7 +11,7 @@ dependencies {
      *  https://github.com/bumptech/glide
      *  https://muyangmin.github.io/glide-docs-cn/doc/download-setup.html
      * Min Sdk Version - 使用 Glide 需要 min SDK 版本 API 14 (Ice Cream Sandwich) 或更高。
-     * Compile Sdk Version - Glide 必须使用 API 27 (Oreo MR1) 或更高版本的 SDK 来编译。
+     * Compile Sdk Version - Glide 必须使用 API 27 (Oreo MR1) 或更高版本的 SDK 来编译。+-
      * Support Library Version - Glide 使用的支持库版本为 27。
      */
     api(glideDeps.glide) {

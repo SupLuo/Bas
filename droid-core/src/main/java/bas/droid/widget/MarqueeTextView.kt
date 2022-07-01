@@ -85,9 +85,4 @@ class MarqueeTextView @JvmOverloads constructor(
         super.setSelected(isMarqueeEnabled)
     }
 
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-        Log.d("跑马灯", "正在绘制")
-    }
-
 }
