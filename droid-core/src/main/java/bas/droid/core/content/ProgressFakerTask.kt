@@ -12,8 +12,11 @@ import kotlin.random.Random
 
 /**
  * 执行耗时任务的时候同步进行伪进度条
- *
+ * @param timeMax 伪进度的最大预期执行时间，即进度在[timeMax]时间之后会达到[progressMax]值
+ * @param progressMax 伪进度能够达到的最大进度值
+ * @param count 回调多少次，即刷新[count]次界面进度值
  * @param progressCallback 进度回调(已切回UI线程执行)
+ * @param task 工作任务
  */
 suspend fun <T> invokeTaskWithProgressFaker(
     timeMax: Long = 10 * 1000,
@@ -51,7 +54,7 @@ suspend fun <T> invokeTaskWithProgressFaker(
 @Deprecated(
     "该方法只是使用模板，不建议直接使用", replaceWith = ReplaceWith(
         "async(Dispatchers.Default) {\n" +
-                "        invokeProgressFaker(12000, 95, 24, callback)\n" +
+                "        invokeProgressFaker(timeMax, progressMax, count, callback)\n" +
                 "    }", "bas.droid.core.content.invokeProgressFaker"
     )
 )

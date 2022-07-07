@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AMTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AMTheme" parent="Theme.Material3.Dark.NoActionBar">
         <item name="backgroundColor">@color/background_color</item>
         <item name="roundedRadius">@dimen/rounded_radius</item>
         <!--标题栏背景色-->

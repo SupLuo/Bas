@@ -8,12 +8,21 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
-class SingleViewModelFactory(val creator: () -> ViewModel) :
-    ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return creator.invoke() as T
+//class SingleViewModelFactory(val creator: () -> ViewModel) :
+//    ViewModelProvider.NewInstanceFactory() {
+//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//        return creator.invoke() as T
+//    }
+//}
+
+inline fun SingleViewModelFactory(crossinline creator: () -> ViewModel): ViewModelProvider.Factory =
+    object : ViewModelProvider.NewInstanceFactory() {
+
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return creator.invoke() as T
+        }
     }
-}
+
 
 fun ViewModel.launch(
     context: CoroutineContext = EmptyCoroutineContext,

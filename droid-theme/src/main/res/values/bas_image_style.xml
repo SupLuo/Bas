@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <!--图片圆角-->
+    <dimen name="bas_image_corner_radius">@dimen/bas_corner_radius</dimen>
+
+    <!--图片形状-->
+    <style name="ImageShape" tools:ignore="ResourceName">
+
+    </style>
+
+    <!--圆角图片-->
+    <!--app:shapeAppearance="@style/ImageShape.Rounded"-->
+    <style name="ImageShape.Rounded" tools:ignore="ResourceName" >
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/bas_image_corner_radius</item>
+    </style>
+
+    <!--圆形图片-->
+    <!--app:shapeAppearance="@style/ImageShape.Circle"-->
+    <style name="ImageShape.Circle" tools:ignore="ResourceName">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+
+    <style name="BasWidget" />
+
+    <style name="BasWidget.RoundedImage">
+        <item name="shapeAppearance">@style/ImageShape.Rounded</item>
+    </style>
+
+    <style name="BasWidget.CircleImage" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="shapeAppearance">@style/ImageShape.Circle</item>
+    </style>
+
+</resources>

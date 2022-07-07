@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--默认圆角半径-->
-    <dimen name="corner_radius_bas">6dp</dimen>
     <!--默认分割线大小-->
     <dimen name="divider_size8_bas">8dp</dimen>
 

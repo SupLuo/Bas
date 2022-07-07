@@ -1,4 +1,4 @@
-apply from: "../gradle/android-lib-publishable.gradle"
+apply from: "../../gradle/android-lib-publishable.gradle"
 
 android {
     resourcePrefix 'bas_'

@@ -22,6 +22,9 @@ open class ViewModelArch : ViewModel() {
 
     private val _eventUiState = MutableStateFlow<List<ViewModelEventMessage>>(emptyList())
 
+    /**
+     * 事件流：Toast、Alert、Loading、Error等事件，传递到Activity去执行
+     */
     val eventUiState: StateFlow<List<ViewModelEventMessage>> = _eventUiState
 
     /**

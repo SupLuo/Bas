@@ -48,6 +48,8 @@ class LooperMessagePrinter(private val tag: String) : Printer {
 
     private var startMilliseconds = 0L
 
+    private var logLevel: Int = Log.WARN
+
     /**
      * 设置是否可用
      */
@@ -88,7 +90,7 @@ class LooperMessagePrinter(private val tag: String) : Printer {
             return
 
         if (msg.startsWith(START_TAG)) {
-            if (debuggable) {
+            if (debuggable && logLevel <= Log.DEBUG) {
                 Log.d(tag, msg)
             }
             startMilliseconds = SystemClock.elapsedRealtime()
@@ -98,18 +100,20 @@ class LooperMessagePrinter(private val tag: String) : Printer {
             //消息执行消耗时间
             val usedMillis = SystemClock.elapsedRealtime() - startMilliseconds
             if (usedMillis < ONE_FRAME_TIME) {
-                if (debuggable) {
+                if (debuggable && logLevel <= Log.DEBUG) {
                     Log.d(tag, msg)
                 }
                 return
             } else if (usedMillis < 48) {
-                if (debuggable) {
+                if (debuggable && logLevel <= Log.DEBUG) {
                     Log.d(tag, msg)
                 }
             } else if (usedMillis < 200) {
-                Log.w(tag, "$msg\n$usedMillis ms used")
+                if (logLevel <= Log.WARN)
+                    Log.w(tag, "$msg\n$usedMillis ms used")
             } else {
-                Log.e(tag, "$msg\n[Caution Runnable Block]:$usedMillis ms used")
+                if (logLevel <= Log.ERROR)
+                    Log.e(tag, "$msg\n[Caution Runnable Block]:$usedMillis ms used")
                 report(msg, usedMillis)
             }
         }

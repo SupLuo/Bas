@@ -72,7 +72,9 @@ def inertModules = [
         'droid-theme'        : [
                 group    : 'bas.droid',
                 version  : '0.0.1',
-                useModule: false
+                useModule: true,
+                /*无依赖，独立组件*/
+                isIndepend: true
         ],
         'labelview'          : [
                 group    : 'bas.droid',
@@ -87,7 +89,7 @@ def inertModules = [
         'adapter-imageloader': [
                 group     : 'bas.droid',
                 version   : '1.0.0',
-                useModule : true,
+                useModule : false,
                 /*无依赖，独立组件*/
                 isIndepend: true
         ],
