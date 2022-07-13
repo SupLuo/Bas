@@ -8,9 +8,7 @@ import android.view.KeyEvent
 import android.view.View
 import androidx.leanback.widget.OnChildViewHolderSelectedListener
 import androidx.leanback.widget.VerticalGridView
-import androidx.recyclerview.widget.LinearLayoutManager
 import bas.leanback.core.MemoryState
-import java.util.*
 
 /**
  * Created by Lucio on 2021/3/31.
@@ -60,7 +58,6 @@ class LeanbackVerticalGridView @JvmOverloads constructor(
         super.setOnChildViewHolderSelectedListener(listener)
         //设置监听之后会移除之前添加的所有监听，因此要重新添加焦点记忆监听
         addOnChildViewHolderSelectedListener(memoryHelper.childViewHolderSelectedListener)
-        LinearLayoutManager(context).findFirstCompletelyVisibleItemPosition()
     }
 
     @SuppressLint("RestrictedApi")
