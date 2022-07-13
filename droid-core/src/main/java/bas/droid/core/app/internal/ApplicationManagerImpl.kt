@@ -18,6 +18,8 @@ import bas.lib.core.debuggable
 @TargetApi(14)
 internal object ApplicationManagerImpl : ApplicationManager {
 
+    
+
     override var isDebuggable: Boolean
         set(value) {
             debuggable = value

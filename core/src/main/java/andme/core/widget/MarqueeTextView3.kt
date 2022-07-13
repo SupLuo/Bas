@@ -77,7 +77,7 @@ class MarqueeTextView3 @JvmOverloads constructor(
                 }
             }
             invalidate()
-            postDelayed(this, 50)
+            postDelayed(this, 32)
         }
 
     }

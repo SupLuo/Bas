@@ -4,10 +4,10 @@
 
 package bas.droid.systemui.internal
 
+import android.graphics.Color
 import android.os.Build
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
-import androidx.core.graphics.ColorUtils
 import bas.droid.systemui.SystemUi
 
 /**
@@ -21,7 +21,23 @@ internal fun blendColor(
     @ColorInt color2: Int,
     @FloatRange(from = 0.0, to = 1.0) ratio: Float
 ): Int {
-    return ColorUtils.blendARGB(color1, color2, ratio)
+    return blendARGB(color1, color2, ratio)
+}
+
+/**
+ * 为了不添加core-ktx的依赖，因此复制了方法[androidx.core.graphics.ColorUtils.blendARGB]
+ */
+@ColorInt
+fun blendARGB(
+    @ColorInt color1: Int, @ColorInt color2: Int,
+    @FloatRange(from = 0.0, to = 1.0) ratio: Float
+): Int {
+    val inverseRatio = 1 - ratio
+    val a = Color.alpha(color1) * inverseRatio + Color.alpha(color2) * ratio
+    val r = Color.red(color1) * inverseRatio + Color.red(color2) * ratio
+    val g = Color.green(color1) * inverseRatio + Color.green(color2) * ratio
+    val b = Color.blue(color1) * inverseRatio + Color.blue(color2) * ratio
+    return Color.argb(a.toInt(), r.toInt(), g.toInt(), b.toInt())
 }
 
 internal val impl: SystemUi by lazy {

@@ -59,7 +59,10 @@ interface AnonyContext {
 
     companion object {
 
+        @JvmStatic
         fun new(ctx: Context): AnonyContext {
+            if(ctx is AnonyContext)
+                return ctx
             return if(ctx is Activity){
                 ActivityContext(ctx)
             } else{
@@ -67,7 +70,10 @@ interface AnonyContext {
             }
         }
 
+        @JvmStatic
         fun new(fragment: Fragment): AnonyContext {
+            if(fragment is AnonyContext)
+                return fragment
             return (FragmentContext(fragment))
         }
     }

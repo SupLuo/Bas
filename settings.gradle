@@ -138,7 +138,7 @@ apply from : './module_dependon.gradle'
 //include ':labelview-compiler'
 
 //已发布1.0.0，需要修改代码时再配置进来
-//include ':systemui'
+include ':systemui'
 //include ':leanback-tab'
 //include ':adapter-imageloader'
 
