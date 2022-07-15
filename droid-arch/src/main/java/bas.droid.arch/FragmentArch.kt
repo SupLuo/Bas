@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import bas.droid.core.view.extensions.removeFromParent
 
-abstract class FragmentArch : Fragment,UserUi {
+abstract class FragmentArch : Fragment, UserUi {
 
 //    companion object {
 //        private const val EXTRA_VIEW_FLAG = "_view_cacheable_"
