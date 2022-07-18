@@ -2,6 +2,7 @@ package bas.droid.adapter.mediaplayer
 
 /**
  * Created by Lucio on 2021/4/15.
+ * 播放器
  */
 interface MediaPlayer {
 
@@ -14,7 +15,7 @@ interface MediaPlayer {
      * 设置播放数据
      * @param seekTimeMs 开始播放时间，单位ms
      */
-    fun setDataSource(url: String,seekTimeMs:Int)
+    fun setDataSource(url: String, seekTimeMs: Int)
 
     /**
      * 设置播放数据
@@ -27,7 +28,7 @@ interface MediaPlayer {
      * @param headers 播放设置的headers
      * @param seekTimeMs 开始播放时间，单位ms
      */
-    fun setDataSource(url: String, headers: Map<String, String>,seekTimeMs:Int)
+    fun setDataSource(url: String, headers: Map<String, String>, seekTimeMs: Int)
 
     /**
      * 是否正在播放
@@ -59,11 +60,17 @@ interface MediaPlayer {
 
     /**
      * 暂停播放
+     * @see resume
      */
     fun pause()
 
     /**
-     * 停止播放
+     * 恢复播放（暂停后重新开始）
+     */
+    fun resume()
+
+    /**
+     * 停止播放，之后播放一般是重新开始播放
      */
     fun stop()
 

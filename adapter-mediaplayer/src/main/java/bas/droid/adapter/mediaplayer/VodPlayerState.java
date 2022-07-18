@@ -24,7 +24,7 @@ public @interface VodPlayerState {
     int PREPARED = 1;
 
     /**
-     * 播放状态
+     * 播放中状态
      */
     int PLAYING = 2;
 

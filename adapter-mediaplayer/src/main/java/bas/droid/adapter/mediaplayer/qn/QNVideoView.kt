@@ -201,6 +201,10 @@ class QNVideoView @JvmOverloads constructor(
         kernelView.pause()
     }
 
+    override fun resume() {
+        kernelView.start()
+    }
+
     /**
      * 停止播放
      */

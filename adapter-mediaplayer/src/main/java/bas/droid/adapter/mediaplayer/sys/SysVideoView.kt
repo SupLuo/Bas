@@ -14,6 +14,7 @@ import android.media.MediaPlayer as SysMediaPlayer
 
 /**
  * Created by Lucio on 2021/4/21.
+
  */
 class SysVideoView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -205,6 +206,10 @@ class SysVideoView @JvmOverloads constructor(
     override fun pause() {
         if (kernelView.canPause())
             kernelView.pause()
+    }
+
+    override fun resume() {
+        kernelView.start()
     }
 
     /**

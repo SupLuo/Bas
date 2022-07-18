@@ -280,6 +280,10 @@ class TXVideoView @JvmOverloads constructor(
         kernel.pause()
     }
 
+    override fun resume() {
+        kernel.resume()
+    }
+
     /**
      * 停止播放
      */

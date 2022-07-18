@@ -96,7 +96,7 @@ def inertModules = [
         'adapter-mediaplayer': [
                 group     : 'bas.droid',
                 version   : '0.0.3',
-                useModule : false,
+                useModule : true,
                 /*无依赖，独立组件*/
                 isIndepend: true
         ],

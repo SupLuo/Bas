@@ -211,6 +211,10 @@ class ConfigurableVideoView @JvmOverloads constructor(
         kernelView?.pause()
     }
 
+    override fun resume() {
+        kernelView?.resume()
+    }
+
     /**
      * 停止播放
      */
