@@ -83,14 +83,7 @@ fun Context.copyToClipboard(content: String) {
     clipboardManager.setPrimaryClip(clip)
 }
 
-/**
- * 判断当前设备是手机还是平板，代码来自 Google I/O App for Android
- *
- * @return 平板返回 True，手机返回 False
- */
-fun Context.isTablet(): Boolean {
-    return resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE
-}
+
 
 
 /**
@@ -184,16 +177,6 @@ fun Dialog.hideSoftInputAlwaysImpl() {
     window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 }
 
-/**
- * 当前是否运行在TV上
- * @note :在某些TV设备上 读取到的值为false
- */
-fun Context.isTVUIMode(): Boolean {
-    val uiModeManager =
-        this.applicationContext.getSystemService(Context.UI_MODE_SERVICE) as? UiModeManager
-            ?: return false
-    return (uiModeManager.currentModeType == Configuration.UI_MODE_TYPE_TELEVISION)
-}
 
 /**
  * 生成隐藏虚拟导航栏（华为手机底部虚拟导航栏）的标志

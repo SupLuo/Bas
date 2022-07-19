@@ -6,7 +6,7 @@ import andme.core.statelayout.StateView
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import bas.droid.core.util.isTVUIMode
+import bas.droid.core.app.isTelevisionUiMode
 import bas.droid.core.view.extensions.setTextOrGone
 import bas.droid.ui.loader.core.LoaderUiState
 
@@ -61,7 +61,7 @@ private fun StateView.showTextWithButton(
         it.visibility = View.VISIBLE
         it.text = buttonText
         it.setOnClickListener(onClick)
-        if (it.context.isTVUIMode()) {
+        if (it.context.isTelevisionUiMode()) {
             it.isFocusable = true
             it.isFocusableInTouchMode = true
         }
@@ -85,7 +85,7 @@ fun StateView.setRetryButton(
     buttonAM?.let {
         it.setText(text)
         it.setOnClickListener(onClick)
-        if (it.context.isTVUIMode()) {
+        if (it.context.isTelevisionUiMode()) {
             it.isFocusable = true
             it.isFocusableInTouchMode = true
         }

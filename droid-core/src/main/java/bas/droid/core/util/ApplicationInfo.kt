@@ -52,6 +52,48 @@ fun Context.isServiceRunning(className: String): Boolean {
 
 /**
  * 获取清单文件中指定的meta-data
+ * 本方法只支持基础类型值的获取
+ * @param key     MetaData对应的Key
+ * @param default 默认值，即metadata中无对应key对应的值时返回的值
+ */
+fun <Value> Context.getMetaData(key: String, default: Value): Value {
+    val applicationInfo =
+        packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
+    val metaData = applicationInfo.metaData ?: return default
+    val result = when (default) {
+        is Byte -> {
+            metaData.getByte(key, default)
+        }
+        is Char -> {
+            metaData.getChar(key, default)
+        }
+        is Int -> {
+            metaData.getInt(key, default)
+        }
+        is Long -> {
+            metaData.getLong(key, default)
+        }
+        is Float -> {
+            metaData.getFloat(key, default)
+        }
+        is Double -> {
+            metaData.getDouble(key, default)
+        }
+        is String -> {
+            metaData.getString(key, default)
+        }
+        is Boolean -> {
+            metaData.getBoolean(key, default)
+        }
+        else -> {
+            throw IllegalArgumentException("只支持基础类型的获取")
+        }
+    }
+    return result as Value
+}
+
+/**
+ * 获取清单文件中指定的meta-data
  * @param key     MetaData对应的Key
  * @return 如果没有获取成功(没有对应值，或者异常)，则返回值为空
  */

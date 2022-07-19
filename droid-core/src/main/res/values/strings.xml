@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!--在清单文件中定义的UI Mode，默认普通模式，即app模式，可以设置TV模式-->
+    <string name="bas_ui_mode" tools:ignore="ExtraTranslation">bas_ui_mode</string>
+    <integer name="bas_ui_mode_undefined">0</integer>
+    <integer name="bas_ui_mode_normal">1</integer>
+    <integer name="bas_ui_mode_car">3</integer>
+    <integer name="bas_ui_mode_televison">4</integer>
+
+</resources>

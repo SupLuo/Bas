@@ -57,7 +57,7 @@ ViewGroup2后于ViewGroup1绘制，当ChildView1调用`bringToFront`方法，只
 #### 3.1.4 bringChildToFrontWhenRequestFocus_bas
 ChildView调用requestFocus时，是否同时调用ChildView的bringToFront方法，**默认不开启**；
 该属性作用不大，毕竟ChildView主动调用requestFocus时自己应该清楚自己是否应该调用bringToFont方法；
-但该属性在ChildView嵌套的情况下可以避免遮住的问题，类似与2.1.3更多View层级的情况。
+但该属性在ChildView嵌套的情况下可以避免遮住的问题，类似与3.1.3更多View层级的情况。
 
 #### 3.1.5 focusMemory_bas焦点记忆 + focusMemoryStateType_bas焦点记忆类型
 是否启用焦点记忆，如果启用焦点记忆，那么当布局重新获取焦点时，会优先之前获取焦点的View得到焦点，
