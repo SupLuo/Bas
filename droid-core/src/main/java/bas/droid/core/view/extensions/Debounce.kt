@@ -53,12 +53,23 @@ fun View.debounceClick(
 }
 
 /**
+ * 没有使用[JvmOverloads]方式提供扩展，不方便调用
+ */
+fun View.setOnDebounceClickListener(click: View.OnClickListener?) {
+    setOnDebounceClickListener(DEFAULT_CLICK_THRESHOLD, click)
+}
+
+/**
  * 防抖动点击，效果等同于[debounceClickFlow]
  */
 fun View.setOnDebounceClickListener(
-    threshold: Long = DEFAULT_CLICK_THRESHOLD,
-    click: View.OnClickListener
+    threshold: Long,
+    click: View.OnClickListener?
 ) {
+    if (click == null) {
+        setOnClickListener(null)
+        return
+    }
     setOnClickListener {
         val currentTime = System.currentTimeMillis()
         if (currentTime - this.clickTriggerTime >= threshold) {

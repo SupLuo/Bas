@@ -47,6 +47,7 @@ internal class EffectView @JvmOverloads constructor(
         setLayerType(LAYER_TYPE_SOFTWARE, null)
 
         if (shadowEnabled) {
+            this.shadowPaint.isAntiAlias = true
             this.shadowPaint.maskFilter =
                 BlurMaskFilter(params.shadowWidth, BlurMaskFilter.Blur.OUTER)
             this.shadowPaint.strokeWidth = 1f
@@ -54,6 +55,7 @@ internal class EffectView @JvmOverloads constructor(
         }
 
         if (strokeEnabled) {
+            this.strokePaint.isAntiAlias = true
             this.strokePaint.color = params.strokeColor
             this.strokePaint.strokeWidth = params.strokeWidth
             this.strokePaint.style = Paint.Style.STROKE
