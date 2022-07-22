@@ -41,6 +41,7 @@ dependencies {
     implementation 'halo.android:permission:1.0.5-rc'
 
     gradle.ext.depImplementation(this,'droid-core')
+    gradle.ext.depImplementation(this,'ui-loader-core')
     //    debugImplementation project(path: ':droid-core')
 //    releaseImplementation("bas.droid:droid-core:$droid_core_version")
 //    implementation("bas.droid:droid-core:$droid_core_version")
